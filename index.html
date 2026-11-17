@@ -97,10 +97,6 @@
             </div>
             
             <div class="flex items-center gap-2">
-                <button id="copyDataUrlBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm px-3.5 py-2.5 rounded-2xl shadow-sm flex items-center gap-1.5 active:scale-95 transition cursor-pointer">
-                    <span>🔗</span>
-                    <span id="copyBtnLabel">Salin Pautan</span>
-                </button>
                 <button id="downloadAppBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs sm:text-sm px-3.5 py-2.5 rounded-2xl shadow-sm flex items-center gap-1.5 active:scale-95 transition cursor-pointer">
                     <span>💾</span>
                     <span>Simpan Fail</span>
@@ -261,38 +257,34 @@
     <div id="installModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" style="touch-action: pan-y;">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border-4 border-indigo-100 my-auto">
             <div class="flex justify-between items-center mb-3">
-                <h3 class="text-xl font-bold text-indigo-700">📲 Cara Letak di Home Screen</h3>
+                <h3 class="text-xl font-bold text-indigo-700">📲 Kenapa Tiada Butang Home Screen?</h3>
                 <button id="closeModalBtn" class="w-9 h-9 rounded-full bg-slate-100 text-slate-600 font-bold text-lg flex items-center justify-center">✕</button>
             </div>
             
             <p class="text-xs sm:text-sm text-slate-600 mb-3 leading-relaxed">
-                Pelayar telefon menyekat butang <strong>"Add to Home Screen"</strong> di dalam mod <em>Preview</em>. Ikuti langkah pantas di bawah:
+                Pelayar telefon (Chrome/Safari) menyembunyikan fungsi <strong>"Add to Home Screen"</strong> jika aplikasi dibuka di dalam mod <em>Preview</em>. Untuk mengaktifkannya, pilih salah satu cara mudah ini:
             </p>
 
             <div class="space-y-3 text-xs sm:text-sm">
-                <div class="bg-emerald-50 p-3.5 rounded-2xl border border-emerald-200">
-                    <p class="font-bold text-emerald-800 mb-1">Cara 1: Guna Pautan Terus (Disyorkan untuk iPhone / Safari)</p>
+                <div class="bg-indigo-50 p-3.5 rounded-2xl border border-indigo-100">
+                    <p class="font-bold text-indigo-800 mb-1">Cara 1: Muat Naik Percuma (Paling Disyorkan untuk Home Screen)</p>
                     <ol class="list-decimal list-inside text-slate-600 space-y-1">
-                        <li>Tekan butang hijau <strong>"🔗 Salin Pautan App"</strong> di bawah.</li>
-                        <li>Buka tab baharu di aplikasi <strong>Safari</strong> telefon anda.</li>
-                        <li>Tekan bar alamat di atas/bawah, pilih <strong>Paste (Tampal)</strong> dan tekan <strong>Go</strong>.</li>
-                        <li>Apabila permainan terbuka di Safari, tekan ikon <strong>Share (Petak anak panah atas)</strong> &rarr; <strong>Add to Home Screen</strong>!</li>
+                        <li>Tekan butang <strong>"💾 Simpan Fail"</strong> di bawah untuk muat turun fail <code>MainanBayi.html</code>.</li>
+                        <li>Buka laman percuma <strong>tiiny.host</strong> atau <strong>app.netlify.com/drop</strong> di Chrome/Safari.</li>
+                        <li>Muat naik fail tersebut untuk dapatkan pautan web anda sendiri.</li>
+                        <li>Buka pautan itu &rarr; Barulah menu <strong>"Add to Home Screen"</strong> akan muncul!</li>
                     </ol>
                 </div>
 
-                <div class="bg-indigo-50 p-3.5 rounded-2xl border border-indigo-100">
-                    <p class="font-bold text-indigo-800 mb-1">Cara 2: Untuk Pengguna Android (Chrome)</p>
+                <div class="bg-emerald-50 p-3.5 rounded-2xl border border-emerald-100">
+                    <p class="font-bold text-emerald-800 mb-1">Cara 2: Buka Terus Tanpa Internet (Offline)</p>
                     <p class="text-slate-600">
-                        Chrome di Android menyekat tampalan pautan terus atas faktor keselamatan. Tekan <strong>"💾 Simpan Fail"</strong> untuk muat turun <code>MainanBayi.html</code>, muat naik secara percuma di <strong>tiiny.host</strong>, kemudian buka pautannya &rarr; <strong>Add to Home Screen</strong>.
+                        Selepas tekan <strong>"💾 Simpan Fail"</strong>, buka aplikasi <strong>Files / My Files</strong> di telefon anda, cari fail <code>MainanBayi.html</code> di folder <em>Downloads</em>, dan tekan untuk terus bermain tanpa internet!
                     </p>
                 </div>
             </div>
 
-            <button id="modalCopyUrlBtn" class="mt-4 w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl shadow-md flex items-center justify-center gap-2 cursor-pointer">
-                <span>🔗</span> <span id="modalCopyLabel">Salin Pautan App (Untuk Safari / iOS)</span>
-            </button>
-
-            <button id="modalDownloadBtn" class="mt-2.5 w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-md flex items-center justify-center gap-2 cursor-pointer">
+            <button id="modalDownloadBtn" class="mt-4 w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-md flex items-center justify-center gap-2 cursor-pointer">
                 <span>💾</span> Muat Turun Fail App (MainanBayi.html)
             </button>
 
@@ -306,4 +298,20 @@
         /**
          * =================================================================
          * INISIALISASI PWA MANIFEST & IKON APLIKASI SECARA DINAMIK
-         * Membolehkan fail 
+         * Membolehkan fail tunggal ini dipasang sebagai App di Android & iOS
+         * =================================================================
+         */
+        function setupPWA() {
+            // Cipta ikon SVG comel dan tukar kepada PNG Data URL untuk ikon telefon
+            const iconCanvas = document.createElement('canvas');
+            iconCanvas.width = 512;
+            iconCanvas.height = 512;
+            const ictx = iconCanvas.getContext('2d');
+            
+            // Latar belakang ikon
+            ictx.fillStyle = '#38BDF8';
+            ictx.beginPath();
+            ictx.roundRect(0, 0, 512, 512, 110);
+            ictx.fill();
+
+            // Lukis belon merah d
